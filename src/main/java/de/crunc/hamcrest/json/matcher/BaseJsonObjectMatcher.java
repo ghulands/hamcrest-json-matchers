@@ -7,9 +7,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Base class for matching JSON objects.
@@ -21,6 +19,10 @@ public abstract class BaseJsonObjectMatcher<T> extends BaseJsonStructureMatcher<
     private final Map<String, Matcher<?>> propertyMatchers = new HashMap<>();
 
     public BaseJsonObjectMatcher<T> prop(String propertyName, Object expected) {
+        if (propertyName == null || propertyName.trim().length() < 1) {
+            throw new IllegalArgumentException("propertyName must not be null nor empty, but was <" + propertyName + ">");
+        }
+
         Matcher<?> matcher = getMatcher(expected);
         propertyMatchers.put(propertyName, matcher);
         return this;
@@ -70,38 +72,23 @@ public abstract class BaseJsonObjectMatcher<T> extends BaseJsonStructureMatcher<
                     .appendText(propertyName)
                     .appendText(": ");
 
-            // -----------------------------------------------------
-            // check whether property exists
-            // -----------------------------------------------------
+            Matcher<?> propertyMatcher = propertyMatchers.get(propertyName);
+
             if (!actual.has(propertyName)) {
-                desc.appendText("not present");
-                addPropertyDescription = true;
-
-                match = false;
-            } else {
-                JsonElement element = actual.get(propertyName);
-                Matcher<?> propertyMatcher = propertyMatchers.get(propertyName);
-
-                if (propertyMatcher instanceof IsJsonPrimitiveEqualToPrimitive) {
-                    if (!element.isJsonPrimitive()) {
-                        mismatchDescription.appendText("was no primitive value ")
-                                .appendValue(element);
-                        return false;
-                    }
-
-                    if (!propertyMatcher.matches(element)) {
-                        propertyMatcher.describeMismatch(element, desc);
-                        return false;
-                    }
-                }
-
                 // -----------------------------------------------------
-                // check whether the property matches
+                // unmatched property name
                 // -----------------------------------------------------
-                if (!propertyMatcher.matches(element)) {
-                    propertyMatcher.describeMismatch(element, desc);
+                if (!matchesUnmatchedProperty(propertyName, propertyMatcher, desc, indent)) {
                     addPropertyDescription = true;
-
+                    match = false;
+                }
+            } else {
+                // -----------------------------------------------------
+                // matched property name
+                // -----------------------------------------------------
+                JsonElement element = actual.get(propertyName);
+                if (!matchesProperty(propertyName, propertyMatcher, element, desc, indent)) {
+                    addPropertyDescription = true;
                     match = false;
                 }
             }
@@ -111,23 +98,17 @@ public abstract class BaseJsonObjectMatcher<T> extends BaseJsonStructureMatcher<
             }
         }
 
-        Set<String> unexpectedPropertyNames = new HashSet<>();
-
-        for (Map.Entry<String, JsonElement> entry: actual.entrySet()) {
+        for (Map.Entry<String, JsonElement> entry : actual.entrySet()) {
             if (!propertyMatchers.containsKey(entry.getKey())) {
-                unexpectedPropertyNames.add(entry.getKey());
+                // -----------------------------------------------------
+                // unexpected property name
+                // -----------------------------------------------------
+                String propertyName = entry.getKey();
+                JsonElement element = entry.getValue();
+                if (!matchesUnexpectedProperty(propertyName, element, mismatchDescription, indent)) {
+                    match = false;
+                }
             }
-        }
-
-        for (String propertyName : unexpectedPropertyNames) {
-            Description desc = new StringDescription();
-
-            mismatchDescription.appendText("\n")
-                    .appendDescriptionOf(indent())
-                    .appendText(propertyName)
-                    .appendText(": unexpected");
-
-            match = false;
         }
 
         mismatchDescription.appendText("\n")
@@ -135,5 +116,74 @@ public abstract class BaseJsonObjectMatcher<T> extends BaseJsonStructureMatcher<
                 .appendText("}");
 
         return match;
+    }
+
+    /**
+     * Handles the matching of a property matcher when a corresponding property has been found in the object under test.
+     *
+     * @param name                The name of the property.
+     * @param propertyMatcher     The matcher for the value of the property.
+     * @param actualElement       The value of the property.
+     * @param mismatchDescription The mismatch description for recording errors.
+     * @param indent              The current indent that can be used to format the mismatch description.
+     * @return {@code true} if the property should be considered a match, {@code false otherwise}.
+     * @since 0.1
+     */
+    protected boolean matchesProperty(
+            String name,
+            Matcher<?> propertyMatcher,
+            JsonElement actualElement,
+            Description mismatchDescription,
+            int indent) {
+
+        if (!propertyMatcher.matches(actualElement)) {
+            propertyMatcher.describeMismatch(actualElement, mismatchDescription);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Handles the matching of a property matcher when no corresponding property has been found in the object under
+     * test.
+     *
+     * @param name                The name of the property.
+     * @param propertyMatcher     The matcher for the value of the property.
+     * @param mismatchDescription The mismatch description for recording errors.
+     * @param indent              The current indent that can be used to format the mismatch description.
+     * @return {@code true} if the property should be considered a match, {@code false otherwise}.
+     * @since 0.1
+     */
+    protected boolean matchesUnmatchedProperty(
+            String name,
+            Matcher<?> propertyMatcher,
+            Description mismatchDescription,
+            int indent) {
+        mismatchDescription.appendText("not present");
+        return false;
+    }
+
+    /**
+     * Handles the matching of a property when there is no corresponding matcher (the property was not expected).
+     *
+     * @param name                The name of the property.
+     * @param unexpectedElement   The value of the property.
+     * @param mismatchDescription The mismatch description for recording errors.
+     * @param indent              The current indent that can be used to format the mismatch description.
+     * @return {@code true} if the property should be considered a match, {@code false otherwise}.
+     * @since 0.1
+     */
+    protected boolean matchesUnexpectedProperty(
+            String name,
+            JsonElement unexpectedElement,
+            Description mismatchDescription,
+            int indent) {
+
+        mismatchDescription.appendText("\n")
+                .appendDescriptionOf(indent())
+                .appendText(name)
+                .appendText(": unexpected");
+        return false;
     }
 }

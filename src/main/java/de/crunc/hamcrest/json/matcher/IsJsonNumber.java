@@ -4,7 +4,6 @@ import com.google.gson.JsonPrimitive;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsNull;
-import org.hamcrest.number.BigDecimalCloseTo;
 import org.hamcrest.number.OrderingComparison;
 
 import javax.annotation.Nullable;
