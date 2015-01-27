@@ -51,12 +51,7 @@ public abstract class BaseJsonObjectMatcher<T> extends BaseJsonStructureMatcher<
     @Override
     protected boolean matchesSafely(T item, Description mismatchDescription, int indent) {
         JsonObject jsonObject = toJsonObject(item, mismatchDescription);
-
-        if (jsonObject != null) {
-            return matchInternally(jsonObject, mismatchDescription, indent);
-        }
-
-        return false;
+        return jsonObject != null && matchInternally(jsonObject, mismatchDescription, indent);
     }
 
     private boolean matchInternally(JsonObject actual, Description mismatchDescription, int indent) {
