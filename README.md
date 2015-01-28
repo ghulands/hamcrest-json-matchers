@@ -20,7 +20,7 @@ Hamcrest Matchers for matching JSON Strings, GSON Objects, Vertx JsonObjects.
     <dependency>
         <groupId>de.crunc</groupId>
         <artifactId>hamcrest-json-matchers</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.2-SNAPSHOT</version>
         <scope>test</scope>
     </dependency>
 
