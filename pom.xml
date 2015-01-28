@@ -24,13 +24,13 @@
         <javac.source.version>1.7</javac.source.version>
         <javac.target.version>1.7</javac.target.version>
 
-        <version.vertx-core>2.1.5</version.vertx-core>
+        <github.global.server>github</github.global.server>
+
         <version.jsr305>3.0.0</version.jsr305>
+        <version.vertx-core>2.1.5</version.vertx-core>
+        <version.gson>2.3.1</version.gson>
         <version.hamcrest>1.3</version.hamcrest>
         <version.junit>4.11</version.junit>
-        <version.gson>2.3.1</version.gson>
-
-        <github.global.server>github</github.global.server>
     </properties>
 
     <!-- GitHub Token e71be5fc896b8326dbb600ed7488509a929a73d0 -->
@@ -42,14 +42,14 @@
             <version>${version.jsr305}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${version.gson}</version>
-        </dependency>
-        <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
             <version>${version.vertx-core}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${version.gson}</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -94,7 +94,8 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
                 <configuration>
-                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo
+                    </altDeploymentRepository>
                 </configuration>
             </plugin>
             <plugin>
