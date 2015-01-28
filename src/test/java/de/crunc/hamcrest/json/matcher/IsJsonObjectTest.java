@@ -2,7 +2,9 @@ package de.crunc.hamcrest.json.matcher;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import de.crunc.hamcrest.json.JsonMatchers;
 import de.crunc.hamcrest.json.VertxJsonArrayBuilder;
 import de.crunc.hamcrest.json.VertxJsonObjectBuilder;
 import org.hamcrest.Description;
@@ -17,6 +19,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static de.crunc.hamcrest.json.JsonArrayBuilder.array;
+import static de.crunc.hamcrest.json.JsonMatchers.isJsonArray;
+import static de.crunc.hamcrest.json.JsonMatchers.isJsonObject;
 import static de.crunc.hamcrest.json.JsonObjectBuilder.object;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
