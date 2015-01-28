@@ -1,9 +1,10 @@
 package de.crunc.hamcrest.json.matcher;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import de.crunc.hamcrest.json.VertxJsonArrayBuilder;
+import de.crunc.hamcrest.json.VertxJsonObjectBuilder;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
 import org.junit.Test;
@@ -38,55 +39,6 @@ public class IsJsonArrayTest {
                 {new IsJsonArray(), new JsonPrimitive(3.1), false},
                 {new IsJsonArray(), new JsonPrimitive("HalliGalli"), false},
                 {new IsJsonArray(), new JsonObject(), false},
-
-                {new IsJsonArray(), array().build(), true},
-
-                {
-                        new IsJsonArray()
-                                .item("A day without sunshine is like, you know, night. - Steve Martin")
-                                .item(65000)
-                                .item(19.17)
-                                .item(true)
-                                .item(false)
-                                .item(null)
-                                .item( new IsJsonObject()
-                                        .prop("embeddedString", "An embedded string")
-                                        .prop("embeddedInteger", 319)
-                                        .prop("embeddedFloat", 99.91)
-                                        .prop("embeddedBooleanTrue", true)
-                                        .prop("embeddedBooleanFalse", false)
-                                        .prop("embeddedNullValue", null))
-                                .item(new IsJsonArray()
-                                        .item("An embedded string")
-                                        .item(7777)
-                                        .item(512.1024)
-                                        .item(true)
-                                        .item(false)
-                                        .item(null)),
-                        array()
-                                .add("A day without sunshine is like, you know, night. - Steve Martin")
-                                .add(65000)
-                                .add(19.17)
-                                .add(true)
-                                .add(false)
-                                .addNull()
-                                .add(object()
-                                        .put("embeddedString", "An embedded string")
-                                        .put("embeddedInteger", 319)
-                                        .put("embeddedFloat", 99.91)
-                                        .put("embeddedBooleanTrue", true)
-                                        .put("embeddedBooleanFalse", false)
-                                        .putNull("embeddedNullValue"))
-                                .add(array()
-                                        .add("An embedded string")
-                                        .add(7777)
-                                        .add(512.1024)
-                                        .add(true)
-                                        .add(false)
-                                        .addNull())
-                                .build(),
-                        true
-                },
 
                 {new IsJsonArray().item(712), array().add(712).build(), true},
                 {new IsJsonArray().item(713), array().add(712).build(), false},
@@ -142,6 +94,162 @@ public class IsJsonArrayTest {
                 {new IsJsonArray().item(13.37), array().build(), false},
                 {new IsJsonArray().item("Where did that come from?"), array().build(), false},
                 {new IsJsonArray().item(null), array().build(), false},
+
+                // -----------------------------------------------------------------------------------------------
+                // GSON
+                // -----------------------------------------------------------------------------------------------
+                {new IsJsonArray(), array().build(), true},
+
+                {
+                        new IsJsonArray()
+                                .item("A day without sunshine is like, you know, night. - Steve Martin")
+                                .item(65000)
+                                .item(19.17)
+                                .item(true)
+                                .item(false)
+                                .item(null)
+                                .item( new IsJsonObject()
+                                        .prop("embeddedString", "An embedded string")
+                                        .prop("embeddedInteger", 319)
+                                        .prop("embeddedFloat", 99.91)
+                                        .prop("embeddedBooleanTrue", true)
+                                        .prop("embeddedBooleanFalse", false)
+                                        .prop("embeddedNullValue", null))
+                                .item(new IsJsonArray()
+                                        .item("An embedded string")
+                                        .item(7777)
+                                        .item(512.1024)
+                                        .item(true)
+                                        .item(false)
+                                        .item(null)),
+                        array()
+                                .add("A day without sunshine is like, you know, night. - Steve Martin")
+                                .add(65000)
+                                .add(19.17)
+                                .add(true)
+                                .add(false)
+                                .addNull()
+                                .add(object()
+                                        .put("embeddedString", "An embedded string")
+                                        .put("embeddedInteger", 319)
+                                        .put("embeddedFloat", 99.91)
+                                        .put("embeddedBooleanTrue", true)
+                                        .put("embeddedBooleanFalse", false)
+                                        .putNull("embeddedNullValue"))
+                                .add(array()
+                                        .add("An embedded string")
+                                        .add(7777)
+                                        .add(512.1024)
+                                        .add(true)
+                                        .add(false)
+                                        .addNull())
+                                .build(),
+                        true
+                },
+
+                // -----------------------------------------------------------------------------------------------
+                // JSON string
+                // -----------------------------------------------------------------------------------------------
+                {new IsJsonArray(), array().encode(), true},
+
+                {
+                        new IsJsonArray()
+                                .item("A day without sunshine is like, you know, night. - Steve Martin")
+                                .item(65000)
+                                .item(19.17)
+                                .item(true)
+                                .item(false)
+                                .item(null)
+                                .item( new IsJsonObject()
+                                        .prop("embeddedString", "An embedded string")
+                                        .prop("embeddedInteger", 319)
+                                        .prop("embeddedFloat", 99.91)
+                                        .prop("embeddedBooleanTrue", true)
+                                        .prop("embeddedBooleanFalse", false)
+                                        .prop("embeddedNullValue", null))
+                                .item(new IsJsonArray()
+                                        .item("An embedded string")
+                                        .item(7777)
+                                        .item(512.1024)
+                                        .item(true)
+                                        .item(false)
+                                        .item(null)),
+                        array()
+                                .add("A day without sunshine is like, you know, night. - Steve Martin")
+                                .add(65000)
+                                .add(19.17)
+                                .add(true)
+                                .add(false)
+                                .addNull()
+                                .add(object()
+                                        .put("embeddedString", "An embedded string")
+                                        .put("embeddedInteger", 319)
+                                        .put("embeddedFloat", 99.91)
+                                        .put("embeddedBooleanTrue", true)
+                                        .put("embeddedBooleanFalse", false)
+                                        .putNull("embeddedNullValue"))
+                                .add(array()
+                                        .add("An embedded string")
+                                        .add(7777)
+                                        .add(512.1024)
+                                        .add(true)
+                                        .add(false)
+                                        .addNull())
+                                .encode(),
+                        true
+                },
+
+                // -----------------------------------------------------------------------------------------------
+                // Vertx JSON
+                // -----------------------------------------------------------------------------------------------
+                {new IsJsonArray(), VertxJsonArrayBuilder.array().encode(), true},
+
+                {
+                        new IsJsonArray()
+                                .item("A day without sunshine is like, you know, night. - Steve Martin")
+                                .item(65000)
+                                .item(19.17)
+                                .item(true)
+                                .item(false)
+                                .item(null)
+                                .item( new IsJsonObject()
+                                        .prop("embeddedString", "An embedded string")
+                                        .prop("embeddedInteger", 319)
+                                        .prop("embeddedFloat", 99.91)
+                                        .prop("embeddedBooleanTrue", true)
+                                        .prop("embeddedBooleanFalse", false)
+                                        .prop("embeddedNullValue", null))
+                                .item(new IsJsonArray()
+                                        .item("An embedded string")
+                                        .item(7777)
+                                        .item(512.1024)
+                                        .item(true)
+                                        .item(false)
+                                        .item(null)),
+                        VertxJsonArrayBuilder.array()
+                                .add("A day without sunshine is like, you know, night. - Steve Martin")
+                                .add(65000)
+                                .add(19.17)
+                                .add(true)
+                                .add(false)
+                                .addNull()
+                                .add(VertxJsonObjectBuilder.object()
+                                        .put("embeddedString", "An embedded string")
+                                        .put("embeddedInteger", 319)
+                                        .put("embeddedFloat", 99.91)
+                                        .put("embeddedBooleanTrue", true)
+                                        .put("embeddedBooleanFalse", false)
+                                        .putNull("embeddedNullValue"))
+                                .add(VertxJsonArrayBuilder.array()
+                                        .add("An embedded string")
+                                        .add(7777)
+                                        .add(512.1024)
+                                        .add(true)
+                                        .add(false)
+                                        .addNull())
+                                .encode(),
+                        true
+                },
         });
     }
 
@@ -149,7 +257,7 @@ public class IsJsonArrayTest {
     public IsJsonArray matcher;
 
     @Parameterized.Parameter(1)
-    public JsonElement objectUnderTest;
+    public Object objectUnderTest;
 
     @Parameterized.Parameter(2)
     public boolean result;

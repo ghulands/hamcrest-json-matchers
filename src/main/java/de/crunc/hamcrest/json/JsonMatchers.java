@@ -1,7 +1,8 @@
-package de.crunc.hamcrest.json.matcher;
+package de.crunc.hamcrest.json;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import de.crunc.hamcrest.json.matcher.*;
 import org.hamcrest.Matcher;
 import org.hamcrest.number.BigDecimalCloseTo;
 
@@ -13,31 +14,17 @@ import java.math.BigDecimal;
 public final class JsonMatchers {
 
     /**
-     * Matches a JSON string.
+     * Matches a {@link JsonObject}.
      */
-    public static IsJsonObjectString isJsonObjectString() {
-        return new IsJsonObjectString();
-    }
-
-    /**
-     * Matches a JSON string.
-     */
-    public static IsJsonArrayString isJsonArrayString() {
-        return new IsJsonArrayString();
+    public static <T> IsJsonObject<T> isJsonObject() {
+        return new IsJsonObject<>();
     }
 
     /**
      * Matches a {@link JsonObject}.
      */
-    public static IsJsonObject isJsonObject() {
-        return new IsJsonObject();
-    }
-
-    /**
-     * Matches a {@link JsonObject}.
-     */
-    public static IsJsonArray isJsonArray() {
-        return new IsJsonArray();
+    public static <T> IsJsonArray<T> isJsonArray() {
+        return new IsJsonArray<>();
     }
 
     /**
