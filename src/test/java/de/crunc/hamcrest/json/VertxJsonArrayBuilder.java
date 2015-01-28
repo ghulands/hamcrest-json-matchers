@@ -111,7 +111,7 @@ public class VertxJsonArrayBuilder {
      * @since 2.2.2
      */
     public String encode() {
-        return build().toString();
+        return build().encode();
     }
 
     /**
