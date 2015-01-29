@@ -23,13 +23,13 @@ public class IsJsonNumber extends BaseJsonNumberMatcher {
             BigDecimal expectedDec = new BigDecimal(expected.toString());
             this.matcher = OrderingComparison.comparesEqualTo(expectedDec);
         } else {
-            this.matcher = new IsNull<>();
+            this.matcher = new IsNull<BigDecimal>();
         }
     }
 
     @SuppressWarnings("unchecked")
     public IsJsonNumber(@Nullable Matcher<? super BigDecimal> matcher) {
-        this.matcher = (Matcher<? super BigDecimal>)(matcher != null ? matcher : new IsNull<>());
+        this.matcher = (Matcher<? super BigDecimal>)(matcher != null ? matcher : new IsNull<BigDecimal>());
     }
 
     @Override

@@ -2,7 +2,9 @@ package de.crunc.hamcrest.json;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import de.crunc.hamcrest.json.matcher.*;
+import de.crunc.hamcrest.json.matcher.IsJsonArray;
+import de.crunc.hamcrest.json.matcher.IsJsonNumber;
+import de.crunc.hamcrest.json.matcher.IsJsonObject;
 import org.hamcrest.Matcher;
 import org.hamcrest.number.BigDecimalCloseTo;
 
@@ -17,14 +19,14 @@ public final class JsonMatchers {
      * Matches a {@link JsonObject}.
      */
     public static <T> IsJsonObject<T> isJsonObject() {
-        return new IsJsonObject<>();
+        return new IsJsonObject<T>();
     }
 
     /**
      * Matches a {@link JsonObject}.
      */
     public static <T> IsJsonArray<T> isJsonArray() {
-        return new IsJsonArray<>();
+        return new IsJsonArray<T>();
     }
 
     /**

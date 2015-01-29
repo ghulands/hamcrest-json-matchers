@@ -22,7 +22,7 @@ public enum GsonConverter {
     private final Map<Class<?>, ToGsonConverter<?>> converters;
 
     private GsonConverter() {
-        converters = new HashMap<>();
+        converters = new HashMap<Class<?>, ToGsonConverter<?>>();
 
         add(new StringToGsonConverter());
 

@@ -19,15 +19,15 @@ public class IsJsonString extends BaseJsonStringMatcher {
 
     public IsJsonString(@Nullable String expected) {
         if (expected != null) {
-            this.matcher = new IsEqual<>(expected);
+            this.matcher = new IsEqual<String>(expected);
         } else {
-            this.matcher = new IsNull<>();
+            this.matcher = new IsNull<String>();
         }
     }
 
     @SuppressWarnings("unchecked")
     public IsJsonString(@Nullable Matcher<? super String> matcher) {
-        this.matcher = (Matcher<? super String>)(matcher != null ? matcher : new IsNull<>());
+        this.matcher = (Matcher<? super String>)(matcher != null ? matcher : new IsNull<String>());
     }
 
     @Override

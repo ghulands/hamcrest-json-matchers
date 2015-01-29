@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.core.IsNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.List;
  */
 public abstract class BaseJsonArrayMatcher<T> extends BaseJsonStructureMatcher<T> {
 
-    private final List<Matcher<?>> itemMatchers = new ArrayList<>();
+    private final List<Matcher<?>> itemMatchers = new ArrayList<Matcher<?>>();
 
     @Override
     public void describeTo(Description description, int indent) {

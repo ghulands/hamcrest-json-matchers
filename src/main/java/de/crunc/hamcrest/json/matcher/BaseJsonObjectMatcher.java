@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public abstract class BaseJsonObjectMatcher<T> extends BaseJsonStructureMatcher<T> {
 
-    private final Map<String, Matcher<?>> propertyMatchers = new HashMap<>();
+    private final Map<String, Matcher<?>> propertyMatchers = new HashMap<String, Matcher<?>>();
 
     public BaseJsonObjectMatcher<T> prop(String propertyName, Object expected) {
         if (propertyName == null || propertyName.trim().length() < 1) {

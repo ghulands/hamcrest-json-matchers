@@ -20,7 +20,7 @@ public class VertxJsonObjectBuilder {
     private final Map<String, Object> values;
 
     private VertxJsonObjectBuilder() {
-        values = new HashMap<>();
+        values = new HashMap<String, Object>();
     }
 
     /**

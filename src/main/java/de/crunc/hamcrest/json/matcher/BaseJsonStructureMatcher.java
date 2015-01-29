@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsNull;
 
 /**
  * Base class for {@link Matcher} which match either {@link JsonObject} or {@link JsonArray}.
@@ -41,33 +40,7 @@ public abstract class BaseJsonStructureMatcher<T> extends BaseJsonMatcher<T> {
             return new IsJsonString((String) expected);
 
         } else {
-            return new IsEqual<>(expected);
+            return new IsEqual<Object>(expected);
         }
-    }
-
-    protected boolean matchesElement(JsonElement element, Matcher<?> matcher, Description mismatch) {
-        // boolean, number, string wrapped inside a JsonPrimitive
-        if (matcher instanceof BaseJsonPrimitiveMatcher) {
-            if (!matcher.matches(element)) {
-                matcher.describeMismatch(element, mismatch);
-                return false;
-            }
-        }
-
-        // JsonObject or JsonArray
-        if (matcher instanceof BaseJsonStructureMatcher) {
-            if (!matcher.matches(element)) {
-                matcher.describeMismatch(element, mismatch);
-                return false;
-            }
-        }
-
-        // Anything else
-        if (!matcher.matches(mapToActualValue(element))) {
-            matcher.describeMismatch(element, mismatch);
-            return false;
-        }
-
-        return true;
     }
 }
