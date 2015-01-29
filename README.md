@@ -1,6 +1,11 @@
 # hamcrest-json-matchers
 
-Hamcrest Matchers for matching JSON Strings, GSON Objects, Vertx JsonObjects.
+Hamcrest Matchers for matching
+ 
+* JSON Strings
+* GSON JsonObjects
+* Vert.x JsonObjects
+* json.org JSONObjects
 
 ## Installation
 
@@ -29,55 +34,139 @@ Hamcrest Matchers for matching JSON Strings, GSON Objects, Vertx JsonObjects.
 ### JSON strings
 
 ```java
-import static de.crunc.hamcrest.json.JsonMatchers.isJsonObject;
 
-// ...
+    import org.junit.Test;
 
-@Test
-public void testJsonStringEquals() {
+    import static de.crunc.hamcrest.json.JsonMatchers.isJsonArray;
+    import static de.crunc.hamcrest.json.JsonMatchers.isJsonObject;
+    import static org.hamcrest.MatcherAssert.assertThat;
 
-    String json = "{\"someObject\":{\"foo\":31},\"someArray\":[1,2,3]}";
+    // ...
 
-    assertThat(json, isJsonObject()
-            .prop("someObject", isJsonObject()
-                    .prop("foo", 31))
-            .prop("someArray", isJsonArray()
-                    .item(1)
-                    .item(2)
-                    .item(3)));
-}
+    @Test
+    public void testString() {
+
+        String json = "{\"someObject\":{\"foo\":31},\"someArray\":[1,2,3]}";
+
+        assertThat(json, isJsonObject()
+                .prop("someObject", isJsonObject()
+                        .prop("foo", 31))
+                .prop("someArray", isJsonArray()
+                        .item(1)
+                        .item(2)
+                        .item(3)));
+    }
 ```
 
 ### GSON
 
 ```java
-import static de.crunc.hamcrest.json.JsonMatchers.isJsonObject;
 
-// ...
+    import org.junit.Test;
 
-@Test
-public void testJsonStringEquals() {
+    import static de.crunc.hamcrest.json.JsonMatchers.isJsonArray;
+    import static de.crunc.hamcrest.json.JsonMatchers.isJsonObject;
+    import static org.hamcrest.MatcherAssert.assertThat;
 
-    JsonObject someObject = new JsonObject();
-    someObject.add("foo", new JsonPrimitive(31));
+    // ...
 
-    JsonArray someArray = new JsonArray();
-    someArray.add(new JsonPrimitive(1));
-    someArray.add(new JsonPrimitive(2));
-    someArray.add(new JsonPrimitive(3));
+    @Test
+    public void testGson() {
 
-    JsonObject json = new JsonObject();
-    json.add("someObject", someObject);
-    json.add("someArray", someArray);
+        com.google.gson.JsonObject someObject = new com.google.gson.JsonObject();
+        someObject.add("foo", new com.google.gson.JsonPrimitive(31));
 
-    assertThat(json, isJsonObject()
-            .prop("someObject", isJsonObject()
-                    .prop("foo", 31))
-            .prop("someArray", isJsonArray()
-                    .item(1)
-                    .item(2)
-                    .item(3)));
-}
+        com.google.gson.JsonArray someArray = new com.google.gson.JsonArray();
+        someArray.add(new com.google.gson.JsonPrimitive(1));
+        someArray.add(new com.google.gson.JsonPrimitive(2));
+        someArray.add(new com.google.gson.JsonPrimitive(3));
+
+        com.google.gson.JsonObject json = new com.google.gson.JsonObject();
+        json.add("someObject", someObject);
+        json.add("someArray", someArray);
+
+        assertThat(json, isJsonObject()
+                .prop("someObject", isJsonObject()
+                        .prop("foo", 31))
+                .prop("someArray", isJsonArray()
+                        .item(1)
+                        .item(2)
+                        .item(3)));
+    }
+```
+
+### Vert.x
+
+```java
+
+    import org.junit.Test;
+
+    import static de.crunc.hamcrest.json.JsonMatchers.isJsonArray;
+    import static de.crunc.hamcrest.json.JsonMatchers.isJsonObject;
+    import static org.hamcrest.MatcherAssert.assertThat;
+
+    // ...
+
+    @Test
+    public void testVertx() {
+
+        org.vertx.java.core.json.JsonObject someObject = new org.vertx.java.core.json.JsonObject();
+        someObject.putNumber("foo", 31);
+
+        org.vertx.java.core.json.JsonArray someArray = new org.vertx.java.core.json.JsonArray();
+        someArray.addNumber(1);
+        someArray.addNumber(2);
+        someArray.addNumber(3);
+
+        org.vertx.java.core.json.JsonObject json = new org.vertx.java.core.json.JsonObject();
+        json.putObject("someObject", someObject);
+        json.putArray("someArray", someArray);
+
+        assertThat(json, isJsonObject()
+                .prop("someObject", isJsonObject()
+                        .prop("foo", 31))
+                .prop("someArray", isJsonArray()
+                        .item(1)
+                        .item(2)
+                        .item(3)));
+    }
+```
+
+### json.org
+
+```java
+
+    import org.junit.Test;
+
+    import static de.crunc.hamcrest.json.JsonMatchers.isJsonArray;
+    import static de.crunc.hamcrest.json.JsonMatchers.isJsonObject;
+    import static org.hamcrest.MatcherAssert.assertThat;
+
+    // ...
+
+    @Test
+    public void testJsonOrg() {
+
+        org.json.JSONObject someObject = new org.json.JSONObject()
+                .put("foo", 31);
+
+        org.json.JSONArray someArray = new org.json.JSONArray();
+        someArray.put(1);
+        someArray.put(2);
+        someArray.put(3);
+
+        org.json.JSONObject json = new org.json.JSONObject()
+                .put("someObject", someObject)
+                .put("someArray", someArray);
+
+        assertThat(json, isJsonObject()
+                .prop("someObject", isJsonObject()
+                        .prop("foo", 31))
+                .prop("someArray", isJsonArray()
+                        .item(1)
+                        .item(2)
+                        .item(3)));
+    }
 ```
 
 ## Compatibility
@@ -107,3 +196,12 @@ Tested with all combinations of the following versions
 * 2.0.2-final
 * 2.0.1-final
 * 2.0.0-final
+
+### json.org
+
+* 20141113
+* 20140107
+* 20131018
+* 20090211
+* 20080701
+* 20070829

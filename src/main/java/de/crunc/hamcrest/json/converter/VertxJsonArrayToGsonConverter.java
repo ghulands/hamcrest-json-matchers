@@ -21,11 +21,7 @@ public class VertxJsonArrayToGsonConverter implements ToGsonConverter<org.vertx.
     }
 
     @Override
-    public JsonElement toJsonElement(@Nullable org.vertx.java.core.json.JsonArray source) {
-
-        if (source == null) {
-            return JsonNull.INSTANCE;
-        }
+    public JsonElement toJsonElement(org.vertx.java.core.json.JsonArray source) {
 
         JsonArray gsonArray = new JsonArray();
 

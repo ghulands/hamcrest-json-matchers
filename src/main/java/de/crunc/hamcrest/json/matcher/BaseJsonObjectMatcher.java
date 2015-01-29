@@ -155,6 +155,11 @@ public abstract class BaseJsonObjectMatcher<T> extends BaseJsonStructureMatcher<
             Matcher<?> propertyMatcher,
             Description mismatchDescription,
             int indent) {
+        
+        if (propertyMatcher instanceof IsJsonNull) {
+            return true;
+        }
+        
         mismatchDescription.appendText("not present");
         return false;
     }

@@ -28,6 +28,9 @@ public enum GsonConverter {
 
         add(new VertxJsonObjectToGsonConverter());
         add(new VertxJsonArrayToGsonConverter());
+        
+        add(new JSONObjectToGsonConverter());
+        add(new JSONArrayToGsonConverter());
     }
 
     private <T> void add(ToGsonConverter<T> converter) {

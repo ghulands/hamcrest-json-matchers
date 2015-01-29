@@ -16,6 +16,9 @@ import javax.annotation.Nullable;
  */
 public class VertxJsonObjectToGsonConverter implements ToGsonConverter<org.vertx.java.core.json.JsonObject> {
 
+    /**
+     * @since 0.1
+     */
     static final VertxJsonObjectToGsonConverter INSTANCE = new VertxJsonObjectToGsonConverter();
 
     @Override
@@ -24,11 +27,7 @@ public class VertxJsonObjectToGsonConverter implements ToGsonConverter<org.vertx
     }
 
     @Override
-    public JsonElement toJsonElement(@Nullable org.vertx.java.core.json.JsonObject source) {
-
-        if (source == null) {
-            return JsonNull.INSTANCE;
-        }
+    public JsonElement toJsonElement(org.vertx.java.core.json.JsonObject source) {
 
         JsonObject gsonObject = new JsonObject();
 

@@ -23,12 +23,11 @@ public interface ToGsonConverter<T> {
     Class<T> sourceType();
 
     /**
-     * Converts the given source to a {@link JsonElement} if the source is {@code null} an instance of {@link JsonNull}
-     * must be returned.
+     * Converts the given source to a {@link JsonElement}.
      *
      * @param source The JSON source.
-     * @return A JsonElement equal to the given source or {@link JsonNull}
+     * @return A JsonElement equal to the given source.
      * @since 0.1
      */
-    JsonElement toJsonElement(@Nullable T source);
+    JsonElement toJsonElement(T source);
 }

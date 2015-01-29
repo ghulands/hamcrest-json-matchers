@@ -7,6 +7,8 @@ import de.crunc.hamcrest.json.VertxJsonArrayBuilder;
 import de.crunc.hamcrest.json.VertxJsonObjectBuilder;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -108,7 +110,7 @@ public class IsJsonArrayTest {
                                 .item(true)
                                 .item(false)
                                 .item(null)
-                                .item( new IsJsonObject()
+                                .item(new IsJsonObject()
                                         .prop("embeddedString", "An embedded string")
                                         .prop("embeddedInteger", 319)
                                         .prop("embeddedFloat", 99.91)
@@ -160,7 +162,7 @@ public class IsJsonArrayTest {
                                 .item(true)
                                 .item(false)
                                 .item(null)
-                                .item( new IsJsonObject()
+                                .item(new IsJsonObject()
                                         .prop("embeddedString", "An embedded string")
                                         .prop("embeddedInteger", 319)
                                         .prop("embeddedFloat", 99.91)
@@ -202,7 +204,7 @@ public class IsJsonArrayTest {
                 // -----------------------------------------------------------------------------------------------
                 // Vertx JSON
                 // -----------------------------------------------------------------------------------------------
-                {new IsJsonArray(), VertxJsonArrayBuilder.array().encode(), true},
+                {new IsJsonArray(), VertxJsonArrayBuilder.array().build(), true},
 
                 {
                         new IsJsonArray()
@@ -212,7 +214,58 @@ public class IsJsonArrayTest {
                                 .item(true)
                                 .item(false)
                                 .item(null)
-                                .item( new IsJsonObject()
+                                .item(new IsJsonObject()
+                                        .prop("embeddedString", "An embedded string")
+                                        .prop("embeddedInteger", 319)
+                                        .prop("embeddedFloat", 99.91)
+                                        .prop("embeddedBooleanTrue", true)
+                                        .prop("embeddedBooleanFalse", false)
+                                        .prop("embeddedNullValue", null))
+                                .item(new IsJsonArray()
+                                        .item("An embedded string")
+                                        .item(7777)
+                                        .item(512.1024)
+                                        .item(true)
+                                        .item(false)
+                                        .item(null)),
+                        new JSONArray()
+                                .put("A day without sunshine is like, you know, night. - Steve Martin")
+                                .put(65000)
+                                .put(19.17)
+                                .put(true)
+                                .put(false)
+                                .put((Object) null)
+                                .put(new JSONObject()
+                                        .put("embeddedString", "An embedded string")
+                                        .put("embeddedInteger", 319)
+                                        .put("embeddedFloat", 99.91)
+                                        .put("embeddedBooleanTrue", true)
+                                        .put("embeddedBooleanFalse", false)
+                                        .put("embeddedNullValue", (Object) null))
+                                .put(new JSONArray()
+                                        .put("An embedded string")
+                                        .put(7777)
+                                        .put(512.1024)
+                                        .put(true)
+                                        .put(false)
+                                        .put((Object) null)),
+                        true
+                },
+
+                // -----------------------------------------------------------------------------------------------
+                // json.org
+                // -----------------------------------------------------------------------------------------------
+                {new IsJsonArray(), new JSONArray(), true},
+
+                {
+                        new IsJsonArray()
+                                .item("A day without sunshine is like, you know, night. - Steve Martin")
+                                .item(65000)
+                                .item(19.17)
+                                .item(true)
+                                .item(false)
+                                .item(null)
+                                .item(new IsJsonObject()
                                         .prop("embeddedString", "An embedded string")
                                         .prop("embeddedInteger", 319)
                                         .prop("embeddedFloat", 99.91)
@@ -247,7 +300,7 @@ public class IsJsonArrayTest {
                                         .add(true)
                                         .add(false)
                                         .addNull())
-                                .encode(),
+                                .build(),
                         true
                 },
         });

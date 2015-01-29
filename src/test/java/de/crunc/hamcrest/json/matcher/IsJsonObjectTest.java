@@ -2,13 +2,13 @@ package de.crunc.hamcrest.json.matcher;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import de.crunc.hamcrest.json.JsonMatchers;
 import de.crunc.hamcrest.json.VertxJsonArrayBuilder;
 import de.crunc.hamcrest.json.VertxJsonObjectBuilder;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -19,8 +19,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static de.crunc.hamcrest.json.JsonArrayBuilder.array;
-import static de.crunc.hamcrest.json.JsonMatchers.isJsonArray;
-import static de.crunc.hamcrest.json.JsonMatchers.isJsonObject;
 import static de.crunc.hamcrest.json.JsonObjectBuilder.object;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -97,7 +95,8 @@ public class IsJsonObjectTest {
                 {new IsJsonObject().prop("unmatchedInteger", 13), object().build(), false},
                 {new IsJsonObject().prop("unmatchedFloat", 13.37), object().build(), false},
                 {new IsJsonObject().prop("unmatchedString", "Where did that come from?"), object().build(), false},
-                {new IsJsonObject().prop("unmatchedNull", null), object().build(), false},
+                
+                {new IsJsonObject().prop("unmatchedNull", null), object().build(), true},
 
                 // -----------------------------------------------------------------------------------------------
                 // GSON
@@ -199,7 +198,7 @@ public class IsJsonObjectTest {
                                         .add(true)
                                         .add(false)
                                         .addNull())
-                                .encode(),
+                                .build(),
                         true
                 },
 
@@ -252,6 +251,57 @@ public class IsJsonObjectTest {
                                         .add(false)
                                         .addNull())
                                 .encode(),
+                        true
+                },
+
+                // -----------------------------------------------------------------------------------------------
+                // json.org
+                // -----------------------------------------------------------------------------------------------
+                {new IsJsonObject(), new JSONObject(), true},
+
+                {
+                        new IsJsonObject()
+                                .prop("aString", "A day without sunshine is like, you know, night. - Steve Martin")
+                                .prop("aFloat", 65000)
+                                .prop("aFloat", 19.17)
+                                .prop("booleanTrue", true)
+                                .prop("booleanFalse", false)
+                                .prop("nullValue", null)
+                                .prop("anObject", new IsJsonObject()
+                                        .prop("embeddedString", "An embedded string")
+                                        .prop("embeddedInteger", 319)
+                                        .prop("embeddedFloat", 99.91)
+                                        .prop("embeddedBooleanTrue", true)
+                                        .prop("embeddedBooleanFalse", false)
+                                        .prop("embeddedNullValue", null))
+                                .prop("anArray", new IsJsonArray()
+                                        .item("An embedded string")
+                                        .item(7777)
+                                        .item(512.1024)
+                                        .item(true)
+                                        .item(false)
+                                        .item(null)),
+                        new JSONObject()
+                                .put("aString", "A day without sunshine is like, you know, night. - Steve Martin")
+                                .put("aFloat", 65000)
+                                .put("aFloat", 19.17)
+                                .put("booleanTrue", true)
+                                .put("booleanFalse", false)
+                                .put("nullValue", (Object) null)
+                                .put("anObject", new JSONObject()
+                                        .put("embeddedString", "An embedded string")
+                                        .put("embeddedInteger", 319)
+                                        .put("embeddedFloat", 99.91)
+                                        .put("embeddedBooleanTrue", true)
+                                        .put("embeddedBooleanFalse", false)
+                                        .put("embeddedNullValue", (Object) null))
+                                .put("anArray", new JSONArray()
+                                        .put("An embedded string")
+                                        .put(7777)
+                                        .put(512.1024)
+                                        .put(true)
+                                        .put(false)
+                                        .put((Object) null)),
                         true
                 },
         });
