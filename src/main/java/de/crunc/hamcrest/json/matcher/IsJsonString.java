@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
  * Simple {@link Matcher} for matching a {@link JsonPrimitive} which contains a {@link String} value.
  *
  * @author Hauke Jaeger, hauke.jaeger@googlemail.com
+ * @since 0.1
  */
 public class IsJsonString extends BaseJsonStringMatcher {
 
@@ -27,7 +28,7 @@ public class IsJsonString extends BaseJsonStringMatcher {
 
     @SuppressWarnings("unchecked")
     public IsJsonString(@Nullable Matcher<? super String> matcher) {
-        this.matcher = (Matcher<? super String>)(matcher != null ? matcher : new IsNull<String>());
+        this.matcher = (Matcher<? super String>) (matcher != null ? matcher : new IsNull<String>());
     }
 
     @Override

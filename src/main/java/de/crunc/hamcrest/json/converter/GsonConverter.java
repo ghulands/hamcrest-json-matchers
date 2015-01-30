@@ -28,11 +28,18 @@ public enum GsonConverter {
 
         add(new VertxJsonObjectToGsonConverter());
         add(new VertxJsonArrayToGsonConverter());
-        
+
         add(new JSONObjectToGsonConverter());
         add(new JSONArrayToGsonConverter());
     }
 
+    /**
+     * Adds the given converter to the list of converters.
+     *
+     * @param converter The converter which will be added, must not be {@code null}.
+     * @param <T>       The source type of the converter.
+     * @since 0.1
+     */
     private <T> void add(ToGsonConverter<T> converter) {
         converters.put(converter.sourceType(), converter);
     }
@@ -69,9 +76,13 @@ public enum GsonConverter {
     }
 
     /**
-     * Static version of {@link #toJsonElement(Object)}.
+     * Converts the given JSON to an equal {@link JsonElement}. If the given JSON is {@code null} it is being converted
+     * to {@link JsonNull}.
      *
-     * @see #toJsonElement(Object)
+     * @param json The JSON that will be converted.
+     * @param <T>  The type of the json.
+     * @return The {@link JsonElement} that equals the given JSON or {@link JsonNull}.
+     * @throws GsonConversionException If the given JSON can not be converted.
      * @since 0.1
      */
     public static <T> JsonElement convert(T json) {
