@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 import java.math.BigDecimal;
 
 /**
- * TODO: !!! Class description !!!
+ * Matches {@link JsonPrimitive} with a non special numeric value (not NaN or Infinity etc.).
  *
  * @author Hauke Jaeger, hauke.jaeger@googlemail.com
  * @since 0.2
