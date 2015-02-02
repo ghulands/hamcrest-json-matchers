@@ -24,8 +24,6 @@
         <javac.source.version>1.6</javac.source.version>
         <javac.target.version>1.6</javac.target.version>
 
-        <github.global.server>github</github.global.server>
-
         <version.jsr305>3.0.0</version.jsr305>
         <version.gson>2.3.1</version.gson>
         <version.vertx-core>2.1.5</version.vertx-core>
