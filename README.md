@@ -11,16 +11,16 @@ Hamcrest Matchers for matching
 
 ### Maven
 
-	<repositories>
-		<repository>
-			<id>hamcrest-json-matchers-mvn-repo</id>
-			<url>https://raw.github.com/Crunc/hamcrest-json-matchers/mvn-repo/</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 	
     <dependency>
         <groupId>de.crunc</groupId>
