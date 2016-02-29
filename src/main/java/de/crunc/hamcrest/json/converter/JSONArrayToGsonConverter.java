@@ -4,8 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonPrimitive;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * Converts {@link JSONArray} to {@link JsonElement}.
@@ -13,7 +11,7 @@ import org.json.JSONObject;
  * @author Hauke Jaeger, hauke.jaeger@googlemail.com
  * @since 0.2
  */
-public class JSONArrayToGsonConverter implements ToGsonConverter<JSONArray> {
+public class JSONArrayToGsonConverter implements ToGsonConverter<org.json.JSONArray> {
 
     /**
      * @since 0.2
@@ -21,12 +19,12 @@ public class JSONArrayToGsonConverter implements ToGsonConverter<JSONArray> {
     static final JSONArrayToGsonConverter INSTANCE = new JSONArrayToGsonConverter();
     
     @Override
-    public Class<JSONArray> sourceType() {
-        return JSONArray.class;
+    public Class<org.json.JSONArray> sourceType() {
+        return org.json.JSONArray.class;
     }
 
     @Override
-    public JsonElement toJsonElement(JSONArray source) {
+    public JsonElement toJsonElement(org.json.JSONArray source) {
 
         JsonArray gsonArray = new JsonArray();
 
@@ -36,10 +34,10 @@ public class JSONArrayToGsonConverter implements ToGsonConverter<JSONArray> {
 
             if (value == null) {
                 element = JsonNull.INSTANCE;
-            } else if (value instanceof JSONObject) {
-                element = JSONObjectToGsonConverter.INSTANCE.toJsonElement((JSONObject) value);
-            } else if (value instanceof JSONArray) {
-                element = JSONArrayToGsonConverter.INSTANCE.toJsonElement((JSONArray) value);
+            } else if (value instanceof org.json.JSONObject) {
+                element = JSONObjectToGsonConverter.INSTANCE.toJsonElement((org.json.JSONObject) value);
+            } else if (value instanceof org.json.JSONArray) {
+                element = JSONArrayToGsonConverter.INSTANCE.toJsonElement((org.json.JSONArray) value);
             } else if (value instanceof Boolean) {
                 element = new JsonPrimitive((Boolean) value);
             } else if (value instanceof Number) {
