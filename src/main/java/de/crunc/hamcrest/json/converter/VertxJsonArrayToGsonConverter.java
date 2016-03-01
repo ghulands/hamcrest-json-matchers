@@ -6,35 +6,35 @@ import com.google.gson.*;
 import javax.annotation.Nullable;
 
 /**
- * Converts {@link org.vertx.java.core.json.JsonObject} to {@link JsonElement}.
+ * Converts {@link io.vertx.core.json.JsonObject} to {@link JsonElement}.
  *
  * @author Hauke Jaeger, hauke.jaeger@googlemail.com
  * @since 0.1
  */
-public class VertxJsonArrayToGsonConverter implements ToGsonConverter<org.vertx.java.core.json.JsonArray> {
+public class VertxJsonArrayToGsonConverter implements ToGsonConverter<io.vertx.core.json.JsonArray> {
 
     static final VertxJsonArrayToGsonConverter INSTANCE = new VertxJsonArrayToGsonConverter();
 
     @Override
-    public Class<org.vertx.java.core.json.JsonArray> sourceType() {
-        return org.vertx.java.core.json.JsonArray.class;
+    public Class<io.vertx.core.json.JsonArray> sourceType() {
+        return io.vertx.core.json.JsonArray.class;
     }
 
     @Override
-    public JsonElement toJsonElement(org.vertx.java.core.json.JsonArray source) {
+    public JsonElement toJsonElement(io.vertx.core.json.JsonArray source) {
 
         JsonArray gsonArray = new JsonArray();
 
         for (int index = 0; index < source.size(); ++index) {
-            Object value = source.get(index);
+            Object value = source.getValue(index);
             final JsonElement element;
 
             if (value == null) {
                 element = JsonNull.INSTANCE;
-            } else if (value instanceof org.vertx.java.core.json.JsonObject) {
-                element = VertxJsonObjectToGsonConverter.INSTANCE.toJsonElement((org.vertx.java.core.json.JsonObject) value);
-            } else if (value instanceof org.vertx.java.core.json.JsonArray) {
-                element = VertxJsonArrayToGsonConverter.INSTANCE.toJsonElement((org.vertx.java.core.json.JsonArray) value);
+            } else if (value instanceof io.vertx.core.json.JsonObject) {
+                element = VertxJsonObjectToGsonConverter.INSTANCE.toJsonElement((io.vertx.core.json.JsonObject) value);
+            } else if (value instanceof io.vertx.core.json.JsonArray) {
+                element = VertxJsonArrayToGsonConverter.INSTANCE.toJsonElement((io.vertx.core.json.JsonArray) value);
             } else if (value instanceof Boolean) {
                 element = new JsonPrimitive((Boolean) value);
             } else if (value instanceof Number) {

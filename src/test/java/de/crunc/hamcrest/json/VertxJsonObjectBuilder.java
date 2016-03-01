@@ -1,9 +1,8 @@
 package de.crunc.hamcrest.json;
 
 
-import org.vertx.java.core.json.JsonArray;
-import org.vertx.java.core.json.JsonElement;
-import org.vertx.java.core.json.JsonObject;
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -26,7 +25,7 @@ public class VertxJsonObjectBuilder {
     /**
      * @since 2.2.2
      */
-    public VertxJsonObjectBuilder put(String field, @Nullable JsonElement element) {
+    public VertxJsonObjectBuilder put(String field, @Nullable Object element) {
         if (element != null) {
             values.put(field, element);
             return this;
@@ -106,7 +105,7 @@ public class VertxJsonObjectBuilder {
         JsonObject object = new JsonObject();
 
         for (Map.Entry<String, Object> entry : values.entrySet()) {
-            object.putValue(entry.getKey(), entry.getValue());
+            object.put(entry.getKey(), entry.getValue());
         }
 
         return object;

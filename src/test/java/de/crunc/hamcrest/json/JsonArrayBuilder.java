@@ -1,6 +1,9 @@
 package de.crunc.hamcrest.json;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import javax.annotation.Nullable;
 
@@ -84,7 +87,7 @@ public class JsonArrayBuilder {
      * @since 2.2.2
      */
     public JsonArrayBuilder addNull() {
-        array.add(JsonNull.INSTANCE);
+        array.add(com.google.gson.JsonNull.INSTANCE);
         return this;
     }
 

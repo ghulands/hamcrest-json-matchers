@@ -54,17 +54,17 @@ public class IsJsonObjectTestSamples {
     @Test
     public void testVertx() {
 
-        org.vertx.java.core.json.JsonObject someObject = new org.vertx.java.core.json.JsonObject();
-        someObject.putNumber("foo", 31);
+        io.vertx.core.json.JsonObject someObject = new io.vertx.core.json.JsonObject();
+        someObject.put("foo", 31);
 
-        org.vertx.java.core.json.JsonArray someArray = new org.vertx.java.core.json.JsonArray();
-        someArray.addNumber(1);
-        someArray.addNumber(2);
-        someArray.addNumber(3);
+        io.vertx.core.json.JsonArray someArray = new io.vertx.core.json.JsonArray();
+        someArray.add(1);
+        someArray.add(2);
+        someArray.add(3);
 
-        org.vertx.java.core.json.JsonObject json = new org.vertx.java.core.json.JsonObject();
-        json.putObject("someObject", someObject);
-        json.putArray("someArray", someArray);
+        io.vertx.core.json.JsonObject json = new io.vertx.core.json.JsonObject();
+        json.put("someObject", someObject);
+        json.put("someArray", someArray);
 
         assertThat(json, isJsonObject()
                 .prop("someObject", isJsonObject()

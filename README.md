@@ -110,15 +110,15 @@ Hamcrest Matchers for matching
     @Test
     public void testVertx() {
 
-        org.vertx.java.core.json.JsonObject someObject = new org.vertx.java.core.json.JsonObject();
+        io.vertx.core.json.JsonObject someObject = new io.vertx.core.json.JsonObject();
         someObject.putNumber("foo", 31);
 
-        org.vertx.java.core.json.JsonArray someArray = new org.vertx.java.core.json.JsonArray();
+        io.vertx.core.json.JsonArray someArray = new io.vertx.core.json.JsonArray();
         someArray.addNumber(1);
         someArray.addNumber(2);
         someArray.addNumber(3);
 
-        org.vertx.java.core.json.JsonObject json = new org.vertx.java.core.json.JsonObject();
+        io.vertx.core.json.JsonObject json = new io.vertx.core.json.JsonObject();
         json.putObject("someObject", someObject);
         json.putArray("someArray", someArray);
 

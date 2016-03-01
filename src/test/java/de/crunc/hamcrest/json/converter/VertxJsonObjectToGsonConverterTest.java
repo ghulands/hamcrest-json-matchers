@@ -31,7 +31,7 @@ public class VertxJsonObjectToGsonConverterTest {
 
     @Test
     public void shouldConvertEmptyObject() {
-        org.vertx.java.core.json.JsonObject vertxObject = VertxJsonObjectBuilder.object()
+        io.vertx.core.json.JsonObject vertxObject = VertxJsonObjectBuilder.object()
                 .build();
 
         JsonElement result = converter.toJsonElement(vertxObject);
@@ -42,7 +42,7 @@ public class VertxJsonObjectToGsonConverterTest {
 
     @Test
     public void shouldConvertObject() {
-        org.vertx.java.core.json.JsonObject vertxObject = VertxJsonObjectBuilder.object()
+        io.vertx.core.json.JsonObject vertxObject = VertxJsonObjectBuilder.object()
                 .put("booleanTrue", true)
                 .put("booleanFalse", false)
                 .put("positiveInteger", 42)

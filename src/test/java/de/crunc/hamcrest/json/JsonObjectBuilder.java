@@ -90,7 +90,7 @@ public class JsonObjectBuilder {
      * @since 2.2.2
      */
     public JsonObjectBuilder putNull(String field) {
-        values.add(field, JsonNull.INSTANCE);
+        values.add(field, com.google.gson.JsonNull.INSTANCE);
         return this;
     }
 
