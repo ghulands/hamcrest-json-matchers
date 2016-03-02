@@ -17,23 +17,17 @@ public abstract class BaseJsonMatcher<T> extends TypeSafeDiagnosingMatcher<T> {
     private static final String indention = "   ";
 
     protected SelfDescribing indent() {
-        return new SelfDescribing() {
-            @Override
-            public void describeTo(Description description) {
-                for (int i = 0; i < indent; ++i) {
-                    description.appendText(indention);
-                }
+        return description -> {
+            for (int i = 0; i < indent; ++i) {
+                description.appendText(indention);
             }
         };
     }
 
     protected SelfDescribing indent(final int mod) {
-        return new SelfDescribing() {
-            @Override
-            public void describeTo(Description description) {
-                for (int i = 0; i < (indent + mod); ++i) {
-                    description.appendText(indention);
-                }
+        return description -> {
+            for (int i = 0; i < (indent + mod); ++i) {
+                description.appendText(indention);
             }
         };
     }

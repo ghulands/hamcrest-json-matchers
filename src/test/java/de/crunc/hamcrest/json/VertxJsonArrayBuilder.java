@@ -18,7 +18,7 @@ public class VertxJsonArrayBuilder {
     private final List<Object> values;
 
     private VertxJsonArrayBuilder() {
-        values = new ArrayList<Object>();
+        values = new ArrayList<>();
     }
 
     public VertxJsonArrayBuilder add(@Nullable Object element) {

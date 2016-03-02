@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class BaseJsonArrayMatcher<T> extends BaseJsonStructureMatcher<T> {
 
-    private final List<Matcher<?>> itemMatchers = new ArrayList<Matcher<?>>();
+    private final List<Matcher<?>> itemMatchers = new ArrayList<>();
 
     @Override
     public void describeTo(Description description, int indent) {

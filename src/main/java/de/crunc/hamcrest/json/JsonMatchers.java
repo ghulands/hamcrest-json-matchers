@@ -24,7 +24,7 @@ public final class JsonMatchers {
      * @since 0.1
      */
     public static <T> IsJsonObject<T> isJsonObject() {
-        return new IsJsonObject<T>();
+        return new IsJsonObject<>();
     }
 
     /**
@@ -35,7 +35,7 @@ public final class JsonMatchers {
      * @since 0.1
      */
     public static <T> IsJsonArray<T> isJsonArray() {
-        return new IsJsonArray<T>();
+        return new IsJsonArray<>();
     }
 
     /**
