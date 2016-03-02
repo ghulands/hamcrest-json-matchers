@@ -3,8 +3,6 @@ package de.crunc.hamcrest.json.converter;
 
 import com.google.gson.*;
 
-import javax.annotation.Nullable;
-
 /**
  * Converts {@link io.vertx.core.json.JsonObject} to {@link JsonElement}.
  *

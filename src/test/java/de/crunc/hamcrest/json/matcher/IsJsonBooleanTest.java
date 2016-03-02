@@ -1,8 +1,6 @@
 package de.crunc.hamcrest.json.matcher;
 
 import com.google.gson.*;
-import de.crunc.hamcrest.json.JsonArrayBuilder;
-import de.crunc.hamcrest.json.JsonObjectBuilder;
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;
 import org.junit.Test;

@@ -2,7 +2,6 @@ package de.crunc.hamcrest.json.converter;
 
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import de.crunc.hamcrest.json.JsonArrayBuilder;
 import de.crunc.hamcrest.json.JsonObjectBuilder;

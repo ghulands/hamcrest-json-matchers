@@ -2,11 +2,6 @@ package de.crunc.hamcrest.json.matcher;
 
 import com.google.gson.JsonPrimitive;
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.core.IsNull;
-
-import javax.annotation.Nullable;
-import java.math.BigDecimal;
 
 /**
  * Matches {@link JsonPrimitive} which represents a NaN value.

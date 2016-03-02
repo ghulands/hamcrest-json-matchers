@@ -1,9 +1,6 @@
 package de.crunc.hamcrest.json.converter;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-
-import javax.annotation.Nullable;
 
 /**
  * Converts a JSON object/array/string to a GSON {@link JsonElement}

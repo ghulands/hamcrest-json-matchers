@@ -4,8 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import de.crunc.hamcrest.json.JsonArrayBuilder;
 import de.crunc.hamcrest.json.JsonObjectBuilder;
-import de.crunc.hamcrest.json.VertxJsonArrayBuilder;
-import de.crunc.hamcrest.json.VertxJsonObjectBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Before;
