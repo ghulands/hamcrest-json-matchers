@@ -27,7 +27,7 @@ public class IsJsonBoolean extends BaseJsonBooleanMatcher {
 
     @SuppressWarnings("unchecked")
     public IsJsonBoolean(@Nullable Matcher<? super Boolean> matcher) {
-        this.matcher = (Matcher<? super Boolean>)(matcher != null ? matcher : new IsNull<Boolean>());
+        this.matcher = matcher != null ? matcher : new IsNull<Boolean>();
     }
 
     @Override

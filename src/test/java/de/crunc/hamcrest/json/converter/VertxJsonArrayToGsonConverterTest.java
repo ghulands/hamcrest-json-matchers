@@ -35,7 +35,7 @@ public class VertxJsonArrayToGsonConverterTest {
         JsonElement result = converter.toJsonElement(vertxArray);
 
         assertThat(result, instanceOf(JsonArray.class));
-        assertThat(((JsonArray) result), equalTo(new JsonArray()));
+        assertThat(result, equalTo(new JsonArray()));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class VertxJsonArrayToGsonConverterTest {
         JsonElement result = converter.toJsonElement(vertxArray);
 
         assertThat(result, instanceOf(JsonArray.class));
-        assertThat(((JsonArray) result), equalTo(JsonArrayBuilder.array()
+        assertThat(result, equalTo(JsonArrayBuilder.array()
                 .add(true)
                 .add(false)
                 .add(42)

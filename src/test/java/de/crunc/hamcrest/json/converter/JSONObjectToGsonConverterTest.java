@@ -34,7 +34,7 @@ public class JSONObjectToGsonConverterTest {
         JsonElement result = converter.toJsonElement(jsonObject);
 
         assertThat(result, instanceOf(JsonObject.class));
-        assertThat(((JsonObject) result), equalTo(new JsonObject()));
+        assertThat(result, equalTo(new JsonObject()));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class JSONObjectToGsonConverterTest {
         JsonElement result = converter.toJsonElement(jsonObject);
 
         assertThat(result, instanceOf(JsonObject.class));
-        assertThat(((JsonObject) result), equalTo(JsonObjectBuilder.object()
+        assertThat(result, equalTo(JsonObjectBuilder.object()
                 .put("booleanTrue", true)
                 .put("booleanFalse", false)
                 .put("positiveInteger", 42)

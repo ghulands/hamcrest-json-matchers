@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonPrimitive;
+import org.json.JSONArray;
 
 /**
  * Converts {@link JSONArray} to {@link JsonElement}.

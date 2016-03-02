@@ -34,7 +34,7 @@ public class JSONArrayToGsonConverterTest {
         JsonElement result = converter.toJsonElement(jsonArray);
 
         assertThat(result, instanceOf(JsonArray.class));
-        assertThat(((JsonArray) result), equalTo(new JsonArray()));
+        assertThat(result, equalTo(new JsonArray()));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class JSONArrayToGsonConverterTest {
         JsonElement result = converter.toJsonElement(jsonArray);
 
         assertThat(result, instanceOf(JsonArray.class));
-        assertThat(((JsonArray) result), equalTo(JsonArrayBuilder.array()
+        assertThat(result, equalTo(JsonArrayBuilder.array()
                 .add(true)
                 .add(false)
                 .add(42)

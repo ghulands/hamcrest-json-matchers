@@ -20,7 +20,7 @@ public class IsJsonPrimitiveNumber extends BaseJsonPrimitiveMatcher {
 
     @SuppressWarnings("unchecked")
     public IsJsonPrimitiveNumber(@Nullable Matcher<? super BigDecimal> matcher) {
-        this.matcher = (Matcher<? super BigDecimal>) (matcher != null ? matcher : IsNull.nullValue());
+        this.matcher = matcher != null ? matcher : IsNull.nullValue();
     }
 
     @Override
