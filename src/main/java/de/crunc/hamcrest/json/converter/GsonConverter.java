@@ -26,10 +26,10 @@ public enum GsonConverter {
 
         add(new StringToGsonConverter());
 
-        add("org.vertx.java.core.json.JsonObject", "de.crunc.hamcrest.json.converter.VertxJsonObjectToGsonConverter");
-        add("org.vertx.java.core.json.JsonArray", "de.crunc.hamcrest.json.converter.VertxJsonArrayToGsonConverter");
-        add("org.json.JSONObject", "de.crunc.hamcrest.json.converter.JSONObjectToGsonConverter");
-        add("org.json.JSONArray", "de.crunc.hamcrest.json.converter.JSONArrayToGsonConverter");
+        add(new VertxJsonObjectToGsonConverter());
+        add(new VertxJsonArrayToGsonConverter());
+        add(new JSONObjectToGsonConverter());
+        add(new JSONArrayToGsonConverter());
     }
 
     /**
